@@ -9,7 +9,7 @@
 而后者打印一条消息， 指出餐馆正在营业。"""
 
 
-class Restaurant(object):
+class Restaurant():
     def __init__(self, restaurant_name, cuisine_type):
         self.name = restaurant_name
         self.type = cuisine_type
