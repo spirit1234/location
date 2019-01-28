@@ -25,7 +25,6 @@ with open(file_name) as file_object:
     if file_str not in pi_string:
         print('sorry, have not find your birthday in pi million digits')
 
-
 # word = ''
 # word += nu
 # d += 1
