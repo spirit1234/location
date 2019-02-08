@@ -7,7 +7,7 @@ class Ship(object):
         self.screen = screen
         self.ai_settings = ai_settings
         # 加载飞船图像
-        self.image = pygame.image.load('../images/ship.bmp')
+        self.image = pygame.image.load('images/ship.bmp')
         # 获取飞船的矩形框
         self.rect = self.image.get_rect()
         # 获取屏幕的矩形框
@@ -17,7 +17,8 @@ class Ship(object):
         self.rect.bottom = self.screen_rect.bottom
         # 在飞船的属性center中存储小数值
         self.center = float(self.rect.centerx)
-        self.moving_right = self.moving_left = False
+        self.center1 = float(self.rect.bottom)
+        self.moving_right = self.moving_left = self.moving_up = self.moving_down = False
 
     def update(self):
         """根据移动标志调整飞船位置"""
@@ -33,8 +34,14 @@ class Ship(object):
         if self.moving_left and self.rect.left > 0:
             self.center -= self.ai_settings.ship_speed_factor
 
+        if self.moving_up and self.rect.top > 0:
+            self.center1 -= self.ai_settings.ship_speed_factor
+
+        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
+            self.center1 += self.ai_settings.ship_speed_factor
         # 根据self.center更新rect对象
         self.rect.centerx = self.center
+        self.rect.bottom = self.center1
 
     def blitme(self):
         """在指定位置绘制飞机"""
