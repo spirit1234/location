@@ -24,7 +24,6 @@ class Rocket(object):
             self.center_horizontal += self.set.set_speed
         if self.move_left and self.rect.left > 0:
             self.center_horizontal -= self.set.set_speed
-
         self.rect.centerx = self.center_horizontal
         self.rect.centery = self.center_vertical
 

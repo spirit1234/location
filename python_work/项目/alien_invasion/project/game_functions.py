@@ -3,6 +3,7 @@ import sys
 import pygame
 
 
+
 def check_keydown_event(event, ship):
     # 键盘按下事件
     if event.key == pygame.K_d:
@@ -20,6 +21,9 @@ def check_keydown_event(event, ship):
     elif event.key == pygame.K_s:
         # 飞船向下移动
         ship.moving_down = True
+    elif event.key == pygame.K_SPACE:
+        # 按空格键发射子弹
+        ship.moving_bullet = True
 
 
 def check_keyup_event(event, ship):
@@ -35,9 +39,11 @@ def check_keyup_event(event, ship):
 
     elif event.key == pygame.K_s:
         ship.moving_down = False
+    elif event.key == pygame.K_SPACE:
+        ship.moving_bullet = False
 
 
-def check_events(ship):
+def check_events(ai_settings, screen, ship, bullets):
     # 监视键盘鼠标事件
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -50,8 +56,10 @@ def check_events(ship):
             check_keyup_event(event, ship)
 
 
-def update_screen(ai_settings, screen, ship):
+def update_screen(ai_settings, screen, ship, bullets):
     screen.fill(ai_settings.bg_color)
+    for bullet in bullets.sprites():
+        bullet.draw_bullet()
     ship.blitme()
     # 绘制屏幕可见
     pygame.display.flip()
