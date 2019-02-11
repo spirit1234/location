@@ -1,10 +1,10 @@
 # -*- coding:utf-8 -*-
 import sys
 import pygame
+from bullet import Bullet
 
 
-
-def check_keydown_event(event, ship):
+def check_keydown_event(event, ai_settings, screen, ship, bullets):
     # 键盘按下事件
     if event.key == pygame.K_d:
         # 飞船向右移动
@@ -23,7 +23,7 @@ def check_keydown_event(event, ship):
         ship.moving_down = True
     elif event.key == pygame.K_SPACE:
         # 按空格键发射子弹
-        ship.moving_bullet = True
+        fire_bullet(ai_settings, screen, ship, bullets)
 
 
 def check_keyup_event(event, ship):
@@ -39,8 +39,6 @@ def check_keyup_event(event, ship):
 
     elif event.key == pygame.K_s:
         ship.moving_down = False
-    elif event.key == pygame.K_SPACE:
-        ship.moving_bullet = False
 
 
 def check_events(ai_settings, screen, ship, bullets):
@@ -50,7 +48,7 @@ def check_events(ai_settings, screen, ship, bullets):
             sys.exit()
 
         elif event.type == pygame.KEYDOWN:
-            check_keydown_event(event, ship)
+            check_keydown_event(event, ai_settings, screen, ship, bullets)
 
         elif event.type == pygame.KEYUP:
             check_keyup_event(event, ship)
@@ -63,3 +61,17 @@ def update_screen(ai_settings, screen, ship, bullets):
     ship.blitme()
     # 绘制屏幕可见
     pygame.display.flip()
+
+
+def update_bullet(bullets):
+    bullets.update()
+    # 在子弹到达顶端时移出消失的子弹
+    for bullet in bullets.copy():
+        if bullet.rect.bottom <= 0:
+            bullets.remove(bullet)
+
+
+def fire_bullet(ai_settings, screen, ship, bullets):
+    if len(bullets) < ai_settings.bullet_allowed:
+        new_bullet = Bullet(ai_settings, screen, ship)
+        bullets.add(new_bullet)

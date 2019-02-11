@@ -6,7 +6,7 @@ from pygame.sprite import Sprite
 class Bullet(Sprite):
     def __init__(self, ai_setting, screen, ship):
         """在飞船位置创建子类对象"""
-        super(Bullet, self).__init__()
+        super().__init__()
         self.screen = screen
         # 在(0,0)处创建子弹的矩形框
         self.rect = pygame.Rect(0, 0, ai_setting.bullet_width, ai_setting.bullet_height)

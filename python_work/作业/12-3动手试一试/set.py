@@ -5,3 +5,4 @@ class Set(object):
         self.height = 750
         self.bg_color = (0, 0, 0)
         self.set_speed = 1.5
+

@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 import pygame
-from bullet import Bullet
+
 
 class Ship(object):
     def __init__(self, ai_settings, screen):
@@ -18,9 +18,9 @@ class Ship(object):
         # 在飞船的属性center中存储小数值
         self.center = float(self.rect.centerx)
         self.center1 = float(self.rect.bottom)
-        self.moving_right = self.moving_left = self.moving_up = self.moving_down = self.moving_bullet =False
+        self.moving_right = self.moving_left = self.moving_up = self.moving_down =False
 
-    def update(self,  ai_settings, screen, ship, bullets):
+    def update(self):
         """根据移动标志调整飞船位置"""
         # if self.moving_right:
         #     self.center += self.ai_settings.ship_speed_factor
@@ -39,9 +39,7 @@ class Ship(object):
 
         if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
             self.center1 += self.ai_settings.ship_speed_factor
-        if self.moving_bullet:
-            new_bullet = Bullet(ai_settings, screen, ship)
-            bullets.add(new_bullet)
+
         # 根据self.center更新rect对象
         self.rect.centerx = self.center
         self.rect.bottom = self.center1
